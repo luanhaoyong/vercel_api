@@ -11,6 +11,7 @@ app.use(cors());
 
 // 1. 优先拦截图标请求
 app.get('/favicon.ico', (req, res) => res.status(204).send())
+app.get('/favicon.png', (req, res) => res.status(204).send())
 
 // 2. 再挂载业务路由
 app.use('/', apiRouter) 
