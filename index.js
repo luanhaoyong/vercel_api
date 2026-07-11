@@ -9,8 +9,16 @@ import apiRouter from './api/index.js'
 const app = express();
 app.use(cors());
 
-// 挂载路由，所有api下接口前缀为 /
+// 挂载业务路由
 app.use('/', apiRouter) 
+
+// 【重点】兜底404中间件必须放在所有路由最后
+app.use((req, res) => {
+  res.status(404).json({
+    code: 404,
+    msg: '接口不存在，请检查请求地址'
+  })
+})
 
 const port = 3000;
 app.listen(port, () => {
