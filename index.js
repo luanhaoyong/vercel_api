@@ -9,10 +9,13 @@ import apiRouter from './api/index.js'
 const app = express();
 app.use(cors());
 
-// 挂载业务路由
+// 1. 优先拦截图标请求
+app.get('/favicon.ico', (req, res) => res.status(204).send())
+
+// 2. 再挂载业务路由
 app.use('/', apiRouter) 
 
-// 【重点】兜底404中间件必须放在所有路由最后
+// 3. 最后兜底404
 app.use((req, res) => {
   res.status(404).json({
     code: 404,
